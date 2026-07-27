@@ -49,6 +49,7 @@ For your second milestone, explain what you've worked on since your previous mil
 YouTube
 
 My robot has many different components. The motors are connected to the wheels. This allows the robots to move around. There is a back wheel to make sure the robot is balanced and does not fall over. The motors are connected the motor driver module which tells the motors which way to spin so that the robot can go in the right direction. I have two ultra sonic sensors and their job is to tell the robot if there is a object infront of it so it doesn't crash into it. There is one camera on the front of the robot that detects if there is a ball infront of it. Problems I have faced are that I have not really worked with wiring a breadboard and a raspberry pi so it was confusing at first, but I did eventually get it working. My plan is to get the code working so my robot goes to the ball, and get my own modification on to the robot.
+
 <!---For your first milestone, describe what your project is and how you plan to build it. You can include:
 - An explanation about the different components of your project and how they will all integrate together
 - Technical progress you've made so far
