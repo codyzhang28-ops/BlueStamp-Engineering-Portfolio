@@ -10,17 +10,9 @@ My project is the ball tracking robot and what it does is when it sees the ball,
   
 # Final Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b1XDwiIc2_k?si=6sQTMjWyDeQyV9kK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-For your final milestone, explain the outcome of your project. Key details to include are:
-- What you've accomplished since your previous milestone
-- What your biggest challenges and triumphs were at BSE
-- A summary of key topics you learned about
-- What you hope to learn in the future after eveything you've learned at BSE
-
-
+I added modifications to my robot. One of the modifications was that there are now two LEDs one is green and one is red. The green one will turn on when the robot sees the ball, and the red one turns on when the robot is searching for the ball. The other modification that I have added is that now the robot will push the ball when it gets too close to the robot. My biggest challenge at BSE was getting my code to work. My robot wasn't tracking the ball and I had to find the problem by trial and error. My biggest triumph was finding out that it was the ultra sonic sensors that weren't working so I was able to fix that by changing the code so it doesn't require the ultra sonic sensors. I learned about how raspberry pis work, and how to wiring things with a breadboard and a raspberry pi. It also allowed me to work with python code, and a red mask so my robot can detect the ball and go to it. I hope to learn more about wiring and programming so that I can work on more complicated projects by myself in the future.
 
 # Second Milestone
 
