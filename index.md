@@ -27,9 +27,9 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 **Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/y3VAmNlER5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dnEYJEBreLs?si=okQe9FZYMKEDLFzQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-For your second milestone, explain what you've worked on since your previous milestone. You can highlight:
+I have added the code to allow the robot to track the ball, but when I tested the code, the robot seems to be avoiding the robot, and 
 - Technical details of what you've accomplished and how they contribute to the final goal
 - What has been surprising about the project so far
 - Previous challenges you faced that you overcame
@@ -37,10 +37,7 @@ For your second milestone, explain what you've worked on since your previous mil
 
 # First Milestone
 
-<!---**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.** --->
-
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2xwQUjQNNbI?si=_U_fYGfVKooA2H8_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-YouTube
 
 My robot has many different components. The motors are connected to the wheels. This allows the robots to move around. There is a back wheel to make sure the robot is balanced and does not fall over. The motors are connected the motor driver module which tells the motors which way to spin so that the robot can go in the right direction. I have two ultra sonic sensors and their job is to tell the robot if there is a object infront of it so it doesn't crash into it. There is one camera on the front of the robot that detects if there is a ball infront of it. Problems I have faced are that I have not really worked with wiring a breadboard and a raspberry pi so it was confusing at first, but I did eventually get it working. My plan is to get the code working so my robot goes to the ball, and get my own modification on to the robot.
 
