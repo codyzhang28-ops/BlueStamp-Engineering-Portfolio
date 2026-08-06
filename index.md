@@ -1,5 +1,6 @@
 # Ball Tracking Robot
-Replace this text with a brief description (2-3 sentences) of your project. This description should draw the reader in and make them interested in what you've built. You can include what the biggest challenges, takeaways, and triumphs from completing the project were. As you complete your portfolio, remember your audience is less familiar than you are with all that your project entails!
+
+My project is the ball tracking robot and what it does is when it sees the ball, it will track it and go to it. I had a problems with my robot not working properly so through trial and error I found out that my problem was with my ultra sonic sensors. After that I was able to get my robot working, and add my modifications.
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
