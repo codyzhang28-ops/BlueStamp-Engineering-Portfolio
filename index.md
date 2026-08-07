@@ -32,364 +32,176 @@ Here's where you'll put images of your schematics. [Tinkercad](https://www.tinke
 # Code
 
 ```c++
-<div style="
-  height: 350px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: #1e1e1e;
-  color: white;
-  padding: 15px;
-  border-radius: 8px;
-">
-  <pre style="
-    margin: 0;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    font-family: Consolas, monospace;
-    font-size: 14px;
-    line-height: 1.5;
-  "><code>
-
 # import the necessary packages
-
 from picamera2 import Picamera2
-
 import RPi.GPIO as GPIO
-
 import time
-
 import cv2
-
 import numpy as np
-
 cv2.imshow("Camera feed", 1)
-
 #hardware work
-
 GPIO.setmode(GPIO.BOARD)
-
-
-
 MOTOR1B=21  #Left Motor
-
 MOTOR1E=19
-
-
-
 MOTOR2B=18  #Right Motor
-
 MOTOR2E=22 
-
-
-
 RED_LED = 15 #If it finds the ball, then it will light up the led
 GREEN_LED = 11
-
-
 GPIO.setup(MOTOR1B, GPIO.OUT)
-
 GPIO.setup(MOTOR1E, GPIO.OUT)
-
 GPIO.setup(MOTOR2B, GPIO.OUT)
-
 GPIO.setup(MOTOR2E, GPIO.OUT)
-
 GPIO.setup(RED_LED, GPIO.OUT)
-
 GPIO.setup(GREEN_LED, GPIO.OUT)
 
 def forward():
 
       GPIO.output(MOTOR1B, GPIO.HIGH)
-
       GPIO.output(MOTOR1E, GPIO.LOW)
-
       GPIO.output(MOTOR2B, GPIO.HIGH)
-
       GPIO.output(MOTOR2E, GPIO.LOW)
-
-
 
 def reverse():
 
       GPIO.output(MOTOR1B, GPIO.LOW)
-
       GPIO.output(MOTOR1E, GPIO.HIGH)
-
       GPIO.output(MOTOR2B, GPIO.LOW)
-
       GPIO.output(MOTOR2E, GPIO.HIGH)
-
-
 
 def leftturn():
 
       GPIO.output(MOTOR1B, GPIO.LOW)
-
       GPIO.output(MOTOR1E, GPIO.HIGH)
-
       GPIO.output(MOTOR2B, GPIO.HIGH)
-
       GPIO.output(MOTOR2E, GPIO.LOW)
-
-
 
 def rightturn():
 
       GPIO.output(MOTOR1B, GPIO.HIGH)
-
       GPIO.output(MOTOR1E, GPIO.LOW)
-
       GPIO.output(MOTOR2B, GPIO.LOW)
-
       GPIO.output(MOTOR2E, GPIO.HIGH)
-
-
 
 def stop():
 
       GPIO.output(MOTOR1E, GPIO.LOW)
-
       GPIO.output(MOTOR1B, GPIO.LOW)
-
       GPIO.output(MOTOR2E, GPIO.LOW)
-
       GPIO.output(MOTOR2B, GPIO.LOW)
     
-
-
 #Image analysis work
 
 def segment_colour(frame):    #returns only the red colors in the frame
-
     hsv_roi = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
     mask_1 = cv2.inRange(hsv_roi, np.array([160, 160, 10]), np.array([180, 255, 255]))
-
     ycr_roi = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
-
     mask_2 = cv2.inRange(ycr_roi, np.array((0., 165., 0.)), np.array((255., 255., 255.)))
-
     mask = mask_1 | mask_2
-
     kern_dilate = np.ones((8,8),np.uint8)
-
     kern_erode  = np.ones((3,3),np.uint8)
-
     mask= cv2.erode(mask,kern_erode)
-
     mask=cv2.dilate(mask,kern_dilate)
-
     return mask
 
-
-
 def find_blob(blob):
-
     largest_contour=0
-
     cont_index=0
-
     contours, hierarchy = cv2.findContours(blob, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
-
     for idx, contour in enumerate(contours):
-
         area=cv2.contourArea(contour)
-
         if (area > largest_contour):
-
             largest_contour=area
-
             cont_index=idx
-
     r=(0,0,2,2)
-
     if len(contours) > 0:
-
         r = cv2.boundingRect(contours[cont_index])
-
     return r, largest_contour
 
-
-
 def target_hist(frame):
-
     hsv_img=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
     hist=cv2.calcHist([hsv_img],[0],None,[50],[0,255])
-
     return hist
 
-
-
 #CAMERA CAPTURE
-
 camera = Picamera2()
-
 config = camera.create_preview_configuration(main={"size": (160, 120), "format": "RGB888"})
-
 camera.configure(config)
-
 camera.start()
-
-
-
 time.sleep(0.1)
-
-
-
 flag=0
 
-
-
 while True:
-
       frame = camera.capture_array()
-
       centre_x=0.
-
       centre_y=0.
-
       mask_red=segment_colour(frame)
-
       loct,area=find_blob(mask_red)
-
       x,y,w,h=loct
 
-
-
       if area < 150:
-
             found=0
-
       else:
-
             found=1
-
             simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
-
             centre_x=x+((w)/2)
-
             centre_y=y+((h)/2)
-
             cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
-
             centre_x-=80
-
             centre_y=60-centre_y
-
             print(centre_x, centre_y)
-
       initial=400
-
       GPIO.output(GREEN_LED,GPIO.LOW)
 
-
-
       if(found==0):
-
             #if the ball is not found, spin in the last direction it was seen
             GPIO.output(RED_LED, GPIO.HIGH)
-
-
             if flag==0:
-
                   rightturn()
-
                   time.sleep(0.02)
-
             else:
-
                   leftturn()
-
                   time.sleep(0.02)
-
             stop()
-
             time.sleep(0.0125)
-
-
-
       elif(found==1):
-
             GPIO.output(GREEN_LED, GPIO.HIGH)
             GPIO.output(RED_LED, GPIO.LOW)
-
             if(area<initial):
-
                   #ball is far away, drive forward
-
                   forward()
-
                   time.sleep(0.00625)
-
             elif(area>=initial):
-
                   initial2=6700
-
                   if(area<initial2):
-
                         #ball is mid range, steer towards it then drive forward
-
                         if(centre_x<=-25 or centre_x>=25):
-
                               if(centre_x<0):
-
                                     flag=1
-
                                     leftturn()
-
                                     time.sleep(0.02)
-
                               elif(centre_x>0):
-
                                     flag=0
-
                                     rightturn()
-
                                     time.sleep(0.02)
-
                         forward()
-
                         time.sleep(0.00003125)
-
                         stop()
-
                         time.sleep(0.00625)
-
                   else:
-
                         # Ball is close enough - push it
                         GPIO.output(GREEN_LED, GPIO.HIGH)
-
                         forward()
                         time.sleep(1.5)   # Adjust this until it pushes the ball the right distance
-
                         stop()
                         time.sleep(0.5)
-
                         reverse()
                         time.sleep(0.5)
-
                         stop()
                         time.sleep(0.5)
-
       if(cv2.waitKey(1) & 0xff == ord('q')):
-
             break
-
-
-
 camera.stop()
-
 GPIO.cleanup()
-
-
-
-  </code></pre>
-</div>
-
 ```
 
 # Bill of Materials
