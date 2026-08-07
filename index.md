@@ -388,4 +388,4 @@ GPIO.cleanup()
 
 # Other Resources/Examples
 
-- [Instructables Ball Tracking Robot]([https://trashytuber.github.io/YimingJiaBlueStamp/](https://www.instructables.com/Ball-Tracking-Robot/))
+- [Instructions for Ball Tracking Robot]([https://trashytuber.github.io/YimingJiaBlueStamp/](https://www.instructables.com/Ball-Tracking-Robot/))
