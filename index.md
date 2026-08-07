@@ -28,7 +28,7 @@ My robot has many different components. The motors are connected to the wheels. 
 
 # Schematics 
 
-!(Schematics for Ball Robot.jpg)
+![Schematics](SchematicsforBallRobot.jpg)
 
 # Code
 
